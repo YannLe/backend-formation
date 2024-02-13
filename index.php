@@ -1,20 +1,22 @@
 <?php
-function traverserLaMontagne($chemin) {
-    if ($chemin !== 'Moria') {
-        throw new Exception("Le chemin $chemin n'est pas sûr !");
-    }
-    echo "Le groupe traverse la montagne par $chemin en sécurité.<br>";
-}
+// Création d'un tableau multidimensionnel pour représenter les membres de l'expédition
+$membresExpedition = [
+    ['nom' => 'Frodon', 'propriétés' => ['Porteur de l\'Anneau', 'Hobbit']],
+    ['nom' => 'Sam', 'propriétés' => ['Jardinier', 'Hobbit']],
+    ['nom' => 'Aragorn', 'propriétés' => ['Protecteur', 'Guide', 'Humain']],
+    ['nom' => 'Gandalf', 'propriétés' => ['Magicien', 'Conseiller']],
+    ['nom' => 'Legolas', 'propriétés' => ['Archer', 'Elfe']],
+    ['nom' => 'Gimli', 'propriétés' => ['Nain', 'Guerrier']],
+];
 
-try {
-    traverserLaMontagne('Caradhras');
-} catch (Exception $e) {
-    echo "Erreur : " . $e->getMessage() . "<br>";
-    // Tentative de traverser par un autre chemin
-    try {
-        traverserLaMontagne('Moria');
-    } catch (Exception $e) {
-        // Gestion de l'exception si Moria est également dangereux
-        echo "Erreur : " . $e->getMessage() . "<br>";
+// Accès et affichage des informations de chaque membre
+$i = 0;
+foreach ($membresExpedition as $membre) {
+    echo "{$membre['nom']}:";
+    foreach ($membre['propriétés'] as $propriété) {
+        echo " $propriété,";
+        ++$i;
     }
+    echo '<br><br>';
 }
+echo "Nombre d'iteration : $i";
