@@ -1,18 +1,17 @@
 <?php
-declare(strict_types=1); // Activer le mode strict pour le typage
+$personnages = "Frodon, Sam, Merry, Pippin";
 
-// Fonction pour changer l'allégeance d'un personnage par référence
-function changerAllegeance(string &$allegeance, string $nouvelleAllegeance): void {
-    $allegeance = $nouvelleAllegeance; // Modifie directement la variable extérieure
-}
+// Conversion de la chaîne en tableau
+$personnagesArray = explode(", ", $personnages);
 
-// Allégeance initiale de Pippin
-$allegeancePippin = 'La Comté';
+// Ajout de 'Gandalf' et 'Aragorn' au tableau en utilisant array_merge()
+$ajouts = ["Gandalf", "Aragorn"];
+$personnagesArray = array_merge($personnagesArray, $ajouts);
 
-echo "Avant: Pippin allège à $allegeancePippin.<br>";
+// Tri du tableau
+sort($personnagesArray);
 
-// Changement d'allégeance pour Pippin
-changerAllegeance($allegeancePippin, 'Gondor');
-
-echo "Après: Pippin allège à $allegeancePippin.<br>";
+// Affichage des personnages triés
+echo "Personnages pour l'expédition vers le Mordor: " . implode(", ", $personnagesArray) . ".<br>";
 ?>
+a
