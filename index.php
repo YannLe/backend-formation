@@ -1,19 +1,18 @@
 <?php
-// Fonction pour déterminer le rôle d'un personnage
-function determinerRolePersonnage($nom) {
-    return match ($nom) {
-        'Frodon' => 'Porteur de l\'Anneau',
-        'Aragorn' => 'Héritier d\'Isildur et futur roi du Gondor',
-        'Gandalf' => 'Magicien et guide de la Communauté de l\'Anneau',
-        'Legolas' => 'Archer elfe et membre de la Communauté de l\'Anneau',
-        'Gimli' => 'Guerrier nain et membre de la Communauté de l\'Anneau',
-        default => 'Personnage inconnu',
-    };
+declare(strict_types=1); // Activer le mode strict pour le typage
+
+// Fonction pour changer l'allégeance d'un personnage par référence
+function changerAllegeance(string &$allegeance, string $nouvelleAllegeance): void {
+    $allegeance = $nouvelleAllegeance; // Modifie directement la variable extérieure
 }
 
-// Exemples d'utilisation de la fonction
-$personnages = ['Frodon', 'Aragorn', 'Gandalf', 'Legolas', 'Gimli', 'Sam'];
+// Allégeance initiale de Pippin
+$allegeancePippin = 'La Comté';
 
-foreach ($personnages as $personnage) {
-    echo $personnage . ' est ' . determinerRolePersonnage($personnage) . ".<br>";
-}
+echo "Avant: Pippin allège à $allegeancePippin.<br>";
+
+// Changement d'allégeance pour Pippin
+changerAllegeance($allegeancePippin, 'Gondor');
+
+echo "Après: Pippin allège à $allegeancePippin.<br>";
+?>
