@@ -1,16 +1,25 @@
 <?php
-// Pile d'actions pour l'expédition
-$pileActions = [];
+class Personnage {
+    public string $nom;
+    public string $race;
 
-// Ajouter des actions à la pile
-$pileActions[] = 'quitter La Comté';
-$pileActions[] = 'traverser les Monts Brumeux';
-$pileActions[] = 'atteindre Fondcombes';
+    // Constructeur pour initialiser les objets
+    public function __construct(string $nom, string $race) {
+        $this->nom = $nom;
+        $this->race = $race;
+    }
 
-echo "Ordre des actions (dernière à première):<br>";
-
-// Traitement des actions dans l'ordre LIFO
-while (!empty($pileActions)) {
-    $action = array_pop($pileActions); // Retire et retourne le dernier élément de la pile
-    echo "$action<br>";
+    // Méthode pour afficher les informations du personnage
+    public function sePresenter() {
+        echo "Bonjour, je suis $this->nom de la race des $this->race.<br>";
+    }
 }
+
+// Création d'instances de la classe Personnage
+$frodon = new Personnage('Frodon', 'Hobbit');
+$aragorn = new Personnage('Aragorn', 'Humain');
+
+// Invocation de la méthode sePresenter sur les instances
+$frodon->sePresenter();
+$aragorn->sePresenter();
+
