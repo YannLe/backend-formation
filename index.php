@@ -1,17 +1,20 @@
 <?php
-$personnages = "Frodon, Sam, Merry, Pippin";
+function traverserLaMontagne($chemin) {
+    if ($chemin !== 'Moria') {
+        throw new Exception("Le chemin $chemin n'est pas sûr !");
+    }
+    echo "Le groupe traverse la montagne par $chemin en sécurité.<br>";
+}
 
-// Conversion de la chaîne en tableau
-$personnagesArray = explode(", ", $personnages);
-
-// Ajout de 'Gandalf' et 'Aragorn' au tableau en utilisant array_merge()
-$ajouts = ["Gandalf", "Aragorn"];
-$personnagesArray = array_merge($personnagesArray, $ajouts);
-
-// Tri du tableau
-sort($personnagesArray);
-
-// Affichage des personnages triés
-echo "Personnages pour l'expédition vers le Mordor: " . implode(", ", $personnagesArray) . ".<br>";
-?>
-a
+try {
+    traverserLaMontagne('Caradhras');
+} catch (Exception $e) {
+    echo "Erreur : " . $e->getMessage() . "<br>";
+    // Tentative de traverser par un autre chemin
+    try {
+        traverserLaMontagne('Moria');
+    } catch (Exception $e) {
+        // Gestion de l'exception si Moria est également dangereux
+        echo "Erreur : " . $e->getMessage() . "<br>";
+    }
+}
