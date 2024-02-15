@@ -4,6 +4,8 @@ class Guerrier extends Personnage implements CombattantInterface
 {
     public string $arme;
 
+    private ?string $secret;
+
     public function __construct(string $nom, string $race, string $arme)
     {
         parent::__construct($nom, $race);
