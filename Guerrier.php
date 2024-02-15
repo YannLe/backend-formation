@@ -1,6 +1,6 @@
 <?php
 
-class Guerrier extends Personnage
+class Guerrier extends Personnage implements CombattantInterface
 {
     public string $arme;
 

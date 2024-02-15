@@ -1,5 +1,5 @@
 <?php
-class Archer extends Personnage
+class Archer extends Personnage implements CombattantInterface
 {
     private int $nbFlèches = 20;
 
@@ -17,6 +17,18 @@ class Archer extends Personnage
         parent::sePresenter();
         echo "Et je tire avec mon arc. J'ai {$this->getNbFlèches()} flèches.<br>";
     }
+
+    public function combattre()
+    {
+        $this->tirerAvecArc();
+        echo "$this->nom tire avec son arc, il lui reste {$this->getNbFlèches()} flèches <br>";
+    }
+
+    private function tirerAvecArc()
+    {
+        $this->setNbFlèches($this->getNbFlèches() - 1);
+    }
+
     public function getNbFlèches(): int
     {
         return $this->nbFlèches;

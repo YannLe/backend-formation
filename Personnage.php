@@ -1,6 +1,6 @@
 <?php
 
-class Personnage
+abstract class Personnage
 {
     public string $nom;
     public string $race;

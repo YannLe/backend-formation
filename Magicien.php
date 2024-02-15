@@ -1,5 +1,5 @@
 <?php
-class Magicien extends Personnage
+class Magicien extends Personnage implements CombattantInterface
 {
     private string $sort;
 
