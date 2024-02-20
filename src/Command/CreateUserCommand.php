@@ -40,7 +40,7 @@ class CreateUserCommand extends Command
             ->addArgument(self::ROLE, InputArgument::REQUIRED, 'Role of the user');
     }
 
-    protected function interact(InputInterface $input, OutputInterface $output)
+    protected function interact(InputInterface $input, OutputInterface $output): void
     {
         $username = $input->getArgument(self::USERNAME);
         $password = $input->getArgument(self::PASSWORD);
