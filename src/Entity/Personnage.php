@@ -3,12 +3,32 @@
 namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Delete;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Patch;
+use ApiPlatform\Metadata\Post;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Attribute\Groups;
 
 #[ORM\Entity]
-#[ApiResource(security: "is_granted('ROLE_ADMIN')")]
+#[ApiResource(
+    operations: [
+        new Get(),
+        new GetCollection(),
+        new Post(
+            denormalizationContext: ['groups' => ['personnage:create']],
+            security: "is_granted('ROLE_ADMIN')"
+        ),
+        new Patch(
+            denormalizationContext: ['groups' => ['personnage:update']],
+            security: "is_granted('ROLE_ADMIN')"
+        ),
+        new Delete(security: "is_granted('ROLE_ADMIN')")
+    ]
+)]
 class Personnage {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -16,16 +36,19 @@ class Personnage {
     private ?int $id = null;
 
     #[ORM\Column(type: 'string')]
-    public string $nom;
+    #[Groups(['personnage:create'])]
+    private ?string $nom = null;
 
     #[ORM\ManyToOne(inversedBy: 'personnages')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups(['personnage:create'])]
     private ?Race $race = null;
 
     #[ORM\ManyToMany(targetEntity: Allegeance::class, inversedBy: 'personnages')]
     private Collection $allegeances;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups(['personnage:create', 'personnage:update'])]
     private ?string $description = null;
 
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
@@ -36,6 +59,10 @@ class Personnage {
         $this->allegeances = new ArrayCollection();
     }
 
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
     public function getRace(): ?Race
     {
         return $this->race;
@@ -95,5 +122,17 @@ class Personnage {
 
         return $this;
     }
+
+    public function setNom(string $nom): Personnage
+    {
+        $this->nom = $nom;
+        return $this;
+    }
+
+    public function getNom(): string
+    {
+        return $this->nom;
+    }
+
 
 }

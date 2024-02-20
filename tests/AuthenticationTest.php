@@ -1,10 +1,7 @@
 <?php
-// tests/AuthenticationTest.php
 
 namespace App\Tests;
 
-use ApiPlatform\Symfony\Bundle\Test\ApiTestCase;
-use App\Entity\User;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\DecodingExceptionInterface;
@@ -13,12 +10,8 @@ use Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 
 
-class AuthenticationTest extends ApiTestCase
+class AuthenticationTest extends UserAwareApiTestCase
 {
-
-    public const USER = 'testUser';
-    public const PASSWORD = '$3CR3T';
-
     /**
      * @throws TransportExceptionInterface
      * @throws ServerExceptionInterface
@@ -28,28 +21,15 @@ class AuthenticationTest extends ApiTestCase
      */
     public function testLogin(): void
     {
-        $client = self::createClient();
-        $client->withOptions(['base_uri' => 'https://localhost:8001',]);
-        $container = self::getContainer();
-        $manager = $container->get('doctrine')->getManager();
-
-
-        $user = new User();
-        $user->setUsername(self::USER);
-        $user->setRoles(['ROLE_ADMIN']);
-        $user->setPassword(
-            $container->get('security.user_password_hasher')->hashPassword($user, self::PASSWORD)
-        );
-
-        $manager->persist($user);
-        $manager->flush();
+        $client = self::createClient([], ['base_uri' => 'https://localhost:8001']);
+        $user = self::createUser();
 
         // retrieve a token
         $response = $client->request('POST', '/auth', [
             'headers' => ['Content-Type' => 'application/json'],
             'json'    => [
-                'username' => self::USER,
-                'password' => self::PASSWORD,
+                'username' => $user->getUsername(),
+                'password' => $user->getPlainPassword(),
             ],
         ]);
 
@@ -57,7 +37,7 @@ class AuthenticationTest extends ApiTestCase
         self::assertResponseIsSuccessful();
         $this->assertArrayHasKey('token', $json);
 
-        // test not authorizedgi
+        // test not authorized
         $client->request('GET', '/api/personnages');
         self::assertResponseStatusCodeSame(Response::HTTP_UNAUTHORIZED);
         // test authorized
