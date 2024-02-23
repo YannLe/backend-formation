@@ -1,17 +1,12 @@
 <?php
 
-
-function changerAllegeances(string &$allegeance, string $nouvelleAllegeance): void
-{
-    $allegeance = $nouvelleAllegeance;
+function changerLieu() {
+    global $lieuEnCours;
+    $lieuEnCours = 'Mordor';
 }
 
+$lieuEnCours = 'La Comté';
 
-$allegeancePipin = 'La Comté';
-
-echo "Pipin allège à $allegeancePipin";
-echo '<br>';
-
-changerAllegeances($allegeancePipin, 'Gondor');
-
-echo "Après, Pipin allège à $allegeancePipin";
+echo "Lieu : $lieuEnCours <br>";
+changerLieu();
+echo "Nouveau lieu : $lieuEnCours <br>";
