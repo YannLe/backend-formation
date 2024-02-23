@@ -1,19 +1,17 @@
 <?php
 
-function role($nomPersonnage)
+
+function changerAllegeances(string &$allegeance, string $nouvelleAllegeance): void
 {
-    return match ($nomPersonnage) {
-        'Frodon' => 'Porteur de l\'anneau',
-        'Aragorn' => 'Guide et futur roi du gondor',
-        'Gandalf' => 'Magicien',
-        'Gimli' => 'Guerrier nain',
-        'Legolas' => 'Archer',
-        default => 'Personnage inconnu'
-    };
+    $allegeance = $nouvelleAllegeance;
 }
 
-$personnages = ['Frodon', 'Sam', 'Aragorn', 'Gandalf', 'Legolas', 'Gimli'];
 
-foreach ($personnages as $personnage) {
-    echo "$personnage est " . role($personnage) . '<br>';
-}
+$allegeancePipin = 'La Comté';
+
+echo "Pipin allège à $allegeancePipin";
+echo '<br>';
+
+changerAllegeances($allegeancePipin, 'Gondor');
+
+echo "Après, Pipin allège à $allegeancePipin";
