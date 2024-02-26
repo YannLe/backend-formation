@@ -1,13 +1,23 @@
 <?php
 
-$pileActions = [];
+class Personnage
+{
+    public string $nom;
+    public string $race;
 
-$pileActions[] = 'Quitter la Comté';
-$pileActions[] = 'Atteindre Fondcombe';
-$pileActions[] = 'Travers les monts brumeux';
+    public function __construct(string $nom, string $race)
+    {
+        $this->nom  = $nom;
+        $this->race = $race;
+    }
 
-echo "Ordre des actions (dernière à la première): <br>";
-
-while(!empty($pileActions)) {
-    echo array_pop($pileActions) . '<br>';
+    public function sePresenter()
+    {
+        echo "Bonjour, je suis $this->nom, de la race des $this->race <br>";
+    }
 }
+$frodo = new Personnage('Frodon', 'Hobbit');
+$aragorn = new Personnage('Aragorn', 'Humain');
+
+$frodo->sePresenter();
+$aragorn->sePresenter();
