@@ -1,23 +1,27 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 
-class Personnage
-{
-    public string $nom;
-    public string $race;
+include('Personnage.php');
+include ('Combattant.php');
+include('Guerrier.php');
+include('Magicien.php');
+include('Archer.php');
 
-    public function __construct(string $nom, string $race)
-    {
-        $this->nom  = $nom;
-        $this->race = $race;
-    }
 
-    public function sePresenter()
-    {
-        echo "Bonjour, je suis $this->nom, de la race des $this->race <br>";
+$frodo     = new Guerrier('Frodon', 'Hobbit', 'Dard');
+$aragorn   = new Guerrier('Aragorn', 'Humain', 'Anduril');
+$gandalf   = new Magicien('Gandalf', 'Istar', 'Vous ne passerez pas!');
+$legolas   = new Archer('Legolas', 'Elfe', 30);
+$galadriel = new Personnage('Galadriel', 'Elfe');
+
+/** @var array<Personnage> $tableauDePersonnage */
+$tableauDePersonnage = [$frodo, $aragorn, $gandalf, $legolas, $galadriel];
+
+foreach ($tableauDePersonnage as $personnage) {
+    $personnage->sePresenter();
+    if (method_exists($personnage, 'combattre')) {
+        $personnage->combattre();
     }
 }
-$frodo = new Personnage('Frodon', 'Hobbit');
-$aragorn = new Personnage('Aragorn', 'Humain');
 
-$frodo->sePresenter();
-$aragorn->sePresenter();
