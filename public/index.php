@@ -3,25 +3,37 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
 include('Personnage.php');
-include ('Combattant.php');
+include('CombattantInterface.php');
+include('NonCombattant.php');
 include('Guerrier.php');
 include('Magicien.php');
 include('Archer.php');
 
+function lancerCombat(CombattantInterface $combattant) {
+    $combattant->combattre();
+    echo '<br>';
+}
 
 $frodo     = new Guerrier('Frodon', 'Hobbit', 'Dard');
 $aragorn   = new Guerrier('Aragorn', 'Humain', 'Anduril');
 $gandalf   = new Magicien('Gandalf', 'Istar', 'Vous ne passerez pas!');
 $legolas   = new Archer('Legolas', 'Elfe', 30);
-$galadriel = new Personnage('Galadriel', 'Elfe');
+$galadriel = new NonCombattant('Galadriel', 'Elfe');
+$bilbo = new NonCombattant('Bilbo', 'Hobbit');
 
-/** @var array<Personnage> $tableauDePersonnage */
-$tableauDePersonnage = [$frodo, $aragorn, $gandalf, $legolas, $galadriel];
+/** @var array<Personnage> $personnages */
+$personnages = [$frodo, $aragorn, $gandalf, $legolas, $galadriel];
 
-foreach ($tableauDePersonnage as $personnage) {
+foreach ($personnages as $personnage) {
     $personnage->sePresenter();
-    if (method_exists($personnage, 'combattre')) {
-        $personnage->combattre();
-    }
 }
 
+echo '<br><br>';
+
+echo '<h2> Les orcs attaquent ! Sortez vos épées! </h2>';
+
+foreach ($personnages as $combattant) {
+    if ($combattant instanceof CombattantInterface) {
+        lancerCombat($combattant);
+    }
+}

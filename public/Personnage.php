@@ -1,6 +1,6 @@
 <?php
 
-class Personnage
+abstract class Personnage
 {
     public string $nom;
     public string $race;
@@ -11,8 +11,5 @@ class Personnage
         $this->race = $race;
     }
 
-    public function sePresenter()
-    {
-        echo "Bonjour, je suis $this->nom, de la race des $this->race. <br>";
-    }
+    abstract function sePresenter() : void;
 }
