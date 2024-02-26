@@ -1,30 +1,24 @@
 <?php
 
-class SarumanException extends Exception
-{
 
+$membresExpedition = [
+    ['nom' => 'Frodo', 'propriété' => ['Porteur de l\'anneau', 'Hobbit']],
+    ['nom' => 'Sam', 'propriété' => ['Jardinier', 'Hobbit']],
+    ['nom' => 'Aragorn', 'propriété' => ['Protecteur', 'Humain']],
+    ['nom' => 'Gandalf', 'propriété' => ['Magicien', 'Conseiller']],
+    ['nom' => 'Legolas', 'propriété' => ['Archer', 'Elfe']],
+    ['nom' => 'Gimli', 'propriété' => ['Nain', 'Guerrier']],
+];
+
+
+$i = 0;
+foreach ($membresExpedition as $membre) {
+    echo "{$membre['nom']} : ";
+    foreach ($membre['propriété'] as $propriete) {
+        echo "$propriete, ";
+        ++$i;
+    }
+    echo '<br>';
 }
 
-
-function traverserLaMontagne(string $chemin): void
-{
-    if ($chemin !== 'Moria') {
-        throw new SarumanException("Le chemin $chemin n'est pas sur !");
-    }
-    echo "Le groupe traverse la montagne par $chemin en sécurité <br>";
-}
-
-try {
-    traverserLaMontagne('Caradhras');
-} catch (Exception $exception) {
-    if ($exception instanceof SarumanException) {
-        echo "Saruman nous barre le passage <br>";
-    }
-    try {
-        traverserLaMontagne('Moria');
-    } catch (Exception $exception) {
-        echo 'Erreur' . $exception->getMessage() . '<br>';
-    }
-} finally {
-    echo "Gandalf meurt ! ";
-}
+echo "Nombre d'itération : $i";
