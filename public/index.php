@@ -11,7 +11,8 @@ include('Guerrier.php');
 include('Magicien.php');
 include('Archer.php');
 
-function lancerCombat(CombattantInterface $combattant) {
+function lancerCombat(CombattantInterface $combattant)
+{
     $combattant->combattre();
     echo '<br>';
 }
@@ -21,13 +22,18 @@ $aragorn   = new Guerrier('Aragorn', 'Humain', 'Anduril');
 $gandalf   = new Magicien('Gandalf', 'Istar', 'Vous ne passerez pas!');
 $legolas   = new Archer('Legolas', 'Elfe', 30);
 $galadriel = new Reine('Galadriel', 'Elfe');
-$bilbo = new Voyageur('Bilbo', 'Hobbit');
+$bilbo     = new Voyageur('Bilbo', 'Hobbit');
+
+
+
+$frodo->ajouterUnSecret('Je suis le porteur de l\'anneau');
 
 /** @var array<Personnage> $personnages */
 $personnages = [$frodo, $aragorn, $gandalf, $legolas, $galadriel, $bilbo];
 
 foreach ($personnages as $personnage) {
-    $personnage->sePresenter();
+    $personnage->sePresenterEnConfiance();
+    echo '<br>';
 }
 
 echo '<br><br>';
@@ -39,5 +45,3 @@ foreach ($personnages as $combattant) {
         lancerCombat($combattant);
     }
 }
-
-var_dump(get_debug_type($bilbo));

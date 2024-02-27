@@ -12,6 +12,7 @@ class Archer extends Personnage implements CombattantInterface
 
     public function sePresenter(): void
     {
+        parent::sePresenter();
         echo "Je suis $this->nom et je tire avec mon arc. Il me reste $this->nbFleches flèches. <br>";
     }
 
