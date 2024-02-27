@@ -2,8 +2,10 @@
 
 class NonCombattant extends Personnage
 {
+
     public function sePresenter(): void
     {
-        echo "Je suis $this->nom. <br>";
+        parent::sePresenter();
+        echo 'Je ne combats pas ! <br>';
     }
 }

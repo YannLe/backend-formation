@@ -11,5 +11,7 @@ abstract class Personnage
         $this->race = $race;
     }
 
-    abstract function sePresenter() : void;
+    function sePresenter() : void {
+        echo "Je m'appelle $this->nom <br>";
+    }
 }

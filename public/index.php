@@ -5,6 +5,8 @@ ini_set('display_errors', 1);
 include('Personnage.php');
 include('CombattantInterface.php');
 include('NonCombattant.php');
+include('Reine.php');
+include('Voyageur.php');
 include('Guerrier.php');
 include('Magicien.php');
 include('Archer.php');
@@ -18,11 +20,11 @@ $frodo     = new Guerrier('Frodon', 'Hobbit', 'Dard');
 $aragorn   = new Guerrier('Aragorn', 'Humain', 'Anduril');
 $gandalf   = new Magicien('Gandalf', 'Istar', 'Vous ne passerez pas!');
 $legolas   = new Archer('Legolas', 'Elfe', 30);
-$galadriel = new NonCombattant('Galadriel', 'Elfe');
-$bilbo = new NonCombattant('Bilbo', 'Hobbit');
+$galadriel = new Reine('Galadriel', 'Elfe');
+$bilbo = new Voyageur('Bilbo', 'Hobbit');
 
 /** @var array<Personnage> $personnages */
-$personnages = [$frodo, $aragorn, $gandalf, $legolas, $galadriel];
+$personnages = [$frodo, $aragorn, $gandalf, $legolas, $galadriel, $bilbo];
 
 foreach ($personnages as $personnage) {
     $personnage->sePresenter();
@@ -37,3 +39,5 @@ foreach ($personnages as $combattant) {
         lancerCombat($combattant);
     }
 }
+
+var_dump(get_debug_type($bilbo));
