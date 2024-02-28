@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Helper\PersonnageHelper;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Attribute\Route;
@@ -9,11 +10,11 @@ use Symfony\Component\Routing\Attribute\Route;
 class TestController extends AbstractController
 {
     #[Route('/test', name: 'app_test')]
-    public function index(): JsonResponse
+    public function index(PersonnageHelper $personnageHelper): JsonResponse
     {
+        $personnages = $personnageHelper->getNewPersonnage();
         return $this->json([
-            'message' => 'Welcome to your new controller!',
-            'path' => 'src/Controller/TestController.php',
+            'personnage' => $personnages
         ]);
     }
 }
