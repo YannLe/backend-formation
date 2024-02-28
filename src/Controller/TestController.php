@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Helper\PersonnageHelper;
+use App\Repository\PersonnageRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Attribute\Route;
@@ -10,9 +10,9 @@ use Symfony\Component\Routing\Attribute\Route;
 class TestController extends AbstractController
 {
     #[Route('/test', name: 'app_test')]
-    public function index(PersonnageHelper $personnageHelper): JsonResponse
+    public function index(PersonnageRepository $personnageRepository): JsonResponse
     {
-        $personnages = $personnageHelper->getNewPersonnage();
+        $personnages = $personnageRepository->findAll();
         return $this->json([
             'personnage' => $personnages
         ]);
