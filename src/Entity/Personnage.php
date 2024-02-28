@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\PersonnageRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: PersonnageRepository::class)]
@@ -16,11 +18,20 @@ class Personnage
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $race = null;
+    #[ORM\ManyToOne]
+    #[ORM\JoinColumn(nullable: true)]
+    private ?Race $race = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $allegeance = null;
+    #[ORM\ManyToMany(targetEntity: Allegeance::class, inversedBy: 'personnages')]
+    private Collection $allegeances;
+
+    #[ORM\OneToOne(inversedBy: 'personnage', cascade: ['persist'])]
+    private ?Arme $arme = null;
+
+    public function __construct()
+    {
+        $this->allegeances = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -39,27 +50,52 @@ class Personnage
         return $this;
     }
 
-    public function getRace(): ?string
+    public function getRace(): ?Race
     {
         return $this->race;
     }
 
-    public function setRace(string $race): static
+    public function setRace(?Race $race): static
     {
         $this->race = $race;
 
         return $this;
     }
 
-    public function getAllegeance(): ?string
+    /**
+     * @return Collection<int, Allegeance>
+     */
+    public function getAllegeances(): Collection
     {
-        return $this->allegeance;
+        return $this->allegeances;
     }
 
-    public function setAllegeance(?string $allegeance): static
+    public function addAllegeance(Allegeance $allegeance): static
     {
-        $this->allegeance = $allegeance;
+        if (!$this->allegeances->contains($allegeance)) {
+            $this->allegeances->add($allegeance);
+        }
 
         return $this;
     }
+
+    public function removeAllegeance(Allegeance $allegeance): static
+    {
+        $this->allegeances->removeElement($allegeance);
+
+        return $this;
+    }
+
+    public function getArme(): ?Arme
+    {
+        return $this->arme;
+    }
+
+    public function setArme(?Arme $arme): static
+    {
+        $this->arme = $arme;
+
+        return $this;
+    }
+
 }
