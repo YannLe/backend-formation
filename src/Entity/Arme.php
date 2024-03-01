@@ -2,10 +2,19 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\Post;
 use App\Repository\ArmeRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ArmeRepository::class)]
+#[ApiResource(
+    operations: [
+        new Get(),
+        new Post()
+    ]
+)]
 class Arme
 {
     #[ORM\Id]
